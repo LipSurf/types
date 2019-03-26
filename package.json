@@ -1,0 +1,10 @@
+{
+  "name": "lipsurf-plugin-types",
+  "version": "1.0.0",
+  "description": "The typescript types for LipSurf plugins.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "repository": "https://github.com/lipsurf/plugin-types",
+  "author": "miko@lipsurf.com",
+  "license": "MIT"
+}
