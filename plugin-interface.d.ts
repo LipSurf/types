@@ -98,11 +98,14 @@ declare interface ICommand extends Partial<IPlan>, ILocalizedCommand, IGlobalCom
     settings?: ISetting[];
 }
 
+
+
 declare interface IPluginUtil {
     // meta
     shutdown: () => void; // shutdown LipSurf
     start: () => void; // startup LipSurf programmatically
-    getOptions: (key?: keyof IOptions) => IOptions; 
+    getOptions(): IOptions; 
+    getOptions<T extends keyof IOptions>(key: T): IOptions[T]; 
     getLanguage: () => LanguageCode;
     setLanguage: (lang: LanguageCode) => void;
 
@@ -114,7 +117,7 @@ declare interface IPluginUtil {
     // TODO: deprecate in favor of generic postToAllFrames?
     // currently used for fullscreen?
     sendMsgToBeacon: (msg: object) => Promise<any>;
-    scrollToAnimated: (ele: JQuery<HTMLElement>) => void;
+    scrollToAnimated: (ele: JQuery<HTMLElement>, offset?: number) => void;
     isInView: (ele: JQuery<HTMLElement>) => boolean;
     getNoCollisionUniqueAttr: () => string;
     sleep: (number) => Promise<void>;

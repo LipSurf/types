@@ -4,7 +4,7 @@ declare interface IOptions {
     language: LanguageCode;
     showLiveText: boolean;
     noHeadphonesMode: boolean;
-    tutorialMode: number;
+    tutorialSlide: string|null;
     inactivityAutoOffMins: number;
     pushToTalkKey: string;
     activatedViaPushToTalk: boolean;
