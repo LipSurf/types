@@ -98,8 +98,6 @@ declare interface ICommand extends Partial<IPlan>, ILocalizedCommand, IGlobalCom
     settings?: ISetting[];
 }
 
-
-
 declare interface IPluginUtil {
     // meta
     shutdown: () => void; // shutdown LipSurf
@@ -154,8 +152,8 @@ declare interface IContext {
 declare interface IPluginBase {
     languages: {[L in LanguageCode]?: IPluginTranslation};
     // should not be overridden by plugins
-    getPluginOption: (name: string) => any;
-    setPluginOption: (name: string, val: any) => Promise<void>;
+    getPluginOption: (pluginId: string, name: string) => any;
+    setPluginOption: (pluginId: string, name: string, val: any) => Promise<void>;
 
     util: IPluginUtil;
 }
