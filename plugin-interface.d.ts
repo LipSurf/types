@@ -1,3 +1,5 @@
+ /// <reference path="./tests.d.ts" />
+
 declare type IndicesPair = [number, number];
 
 declare interface IDisableable {
@@ -28,7 +30,7 @@ declare interface ISimpleHomophones {
 }
 
 declare interface IDynamicMatch {
-    // `false` if partial match -- if there's a partial match we should delay other cmds that 
+    // `false` if partial match -- if there's a partial match we should delay other commands that 
     //                  have a full match; because the user might be in the process of saying this longer
     //                  command where the partial match is a subset but also a matching command "ie. Help Wanted" 
     //                  executing a different command from "Help"
@@ -89,7 +91,7 @@ interface IStringSetting extends IBaseSetting {
 declare type ISetting = IStringSetting | IBooleanSetting;
 
 declare interface ICommand extends Partial<IPlan>, ILocalizedCommand, IGlobalCommand, IFnCommand {
-    test?: () => any;
+    test?: (context: ICommandTestContext) => Promise<void>|void;
     // matchOutput is the array returned from the match function (if there's a match fn) or 
     // the arguments from special match string (wildcard, numeral etc. type special params)
     pageFn?: (transcript: string, ...matchOutput: any[]) => Promise<void>;
@@ -133,7 +135,7 @@ declare interface IPluginTranslation {
     authors?: string;
     description?: string;
     homophones?: ISimpleHomophones;
-    commands: {[cmdName: string]: ILocalizedCommand};
+    commands: {[commandName: string]: ILocalizedCommand};
 }
 
 declare interface IContext {
