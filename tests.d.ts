@@ -1,7 +1,7 @@
 import { By, until, Key, WebDriver } from 'selenium-webdriver';
 import { NotAssertion, IsAssertion, TrueAssertion } from 'ava';
 
-interface IBot {
+declare interface IBot {
     say(phrase: string): Promise<void>;
 }
 
