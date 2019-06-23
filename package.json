@@ -6,5 +6,9 @@
   "types": "index.d.ts",
   "repository": "https://github.com/lipsurf/plugin-types",
   "author": "miko@lipsurf.com",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@types/selenium-webdriver": "^4.0.0",
+    "ava": "^2.1.0"
+  }
 }

@@ -1,5 +1,3 @@
- /// <reference path="./tests.d.ts" />
-
 declare type IndicesPair = [number, number];
 
 declare interface IDisableable {
