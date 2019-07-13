@@ -96,6 +96,7 @@ declare interface ICommand extends Partial<IPlan>, ILocalizedCommand, IGlobalCom
     context?: string|string[];
     enterContext?: string;
     settings?: ISetting[];
+    minConfidence?: number;
 }
 
 declare interface IPluginUtil {
