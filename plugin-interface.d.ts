@@ -151,7 +151,6 @@ declare interface IContext {
 }
 
 declare interface IPluginBase {
-    languages: {[L in LanguageCode]?: IPluginTranslation};
     // should not be overridden by plugins
     getPluginOption: (pluginId: string, name: string) => any;
     setPluginOption: (pluginId: string, name: string, val: any) => Promise<void>;
@@ -162,6 +161,7 @@ declare interface IPluginBase {
 declare interface IPlugin extends Partial<IPlan> {
     niceName: string;
     description?: string;
+    languages?: {[L in LanguageCode]?: IPluginTranslation};
     version?: string;
     apiVersion?: string;
     match: RegExp | RegExp[];
