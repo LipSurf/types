@@ -117,7 +117,7 @@ declare interface IPluginUtil {
     // currently used for fullscreen?
     sendMsgToBeacon: (msg: object) => Promise<any>;
     scrollToAnimated: (ele: JQuery<HTMLElement>, offset?: number) => void;
-    isInView: (ele: JQuery<HTMLElement>) => boolean;
+    isInView: (el: HTMLElement) => boolean;
     getNoCollisionUniqueAttr: () => string;
     sleep: (number) => Promise<void>;
     getHUDEle: () => [HTMLDivElement, boolean];
