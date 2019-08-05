@@ -92,7 +92,7 @@ declare interface ICommand extends Partial<IPlan>, ILocalizedCommand, IGlobalCom
     test?: (context: ICommandTestContext) => Promise<void>|void;
     // matchOutput is the array returned from the match function (if there's a match fn) or 
     // the arguments from special match string (wildcard, numeral etc. type special params)
-    pageFn?: (transcript: string, ...matchOutput: any[]) => Promise<void>;
+    pageFn?: (transcript: string, ...matchOutput: any[]) => void|Promise<void>;
     context?: string|string[];
     enterContext?: string;
     settings?: ISetting[];
