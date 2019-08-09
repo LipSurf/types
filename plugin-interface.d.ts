@@ -116,7 +116,7 @@ declare interface IPluginUtil {
     // TODO: deprecate in favor of generic postToAllFrames?
     // currently used for fullscreen?
     sendMsgToBeacon: (msg: object) => Promise<any>;
-    scrollToAnimated: (ele: JQuery<HTMLElement>, offset?: number) => void;
+    scrollToAnimated: (ele: HTMLElement, offset?: number) => void;
     isInView: (el: HTMLElement) => boolean;
     getNoCollisionUniqueAttr: () => string;
     sleep: (number) => Promise<void>;
