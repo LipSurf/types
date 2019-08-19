@@ -6,6 +6,9 @@ declare interface IDisableable {
 
 type plan = 0|10|20;
 
+type ElementWithAssocText = {ele: HTMLElement, text: string[]};
+type ClickableElement = HTMLAnchorElement | HTMLButtonElement | HTMLInputElement;
+
 declare interface IPlan {
     plan: plan;
 }
@@ -122,6 +125,24 @@ declare interface IPluginUtil {
     sleep: (number) => Promise<void>;
     getHUDEle: () => [HTMLDivElement, boolean];
     pick: (obj: object, ...props: string[]) => object;
+    fuzzyScore: (query: string, source: string) => number;
+    topFuzzyElemMatches: (query: string, eleWTextColl: ElementWithAssocText[]) => HTMLElement[];
+    makeVoiceFriendly: (text: string) => string;
+    disambiguatedFuzzyMatch: (query: string, eleWTextColl: ElementWithAssocText[]) => HTMLElement;
+    unhighlightAll: () => void;
+    highlight: (...els: HTMLElement[]) => void;
+    disambiguate: (els: HTMLElement[]) => Promise<HTMLElement>;
+    clickOrFocus: (el: HTMLElement) => void;
+}
+
+declare interface IAnnotations {
+    destroy: () => void;
+    annotate: (getEls: () => HTMLElement[]) => void;
+    data: {
+        used: Set<string>,
+    };
+    select: (annotationName: string) => HTMLElement;
+    setAnnoSelectCb: (cb: (el: HTMLElement, annoName: string) => any) => void;
 }
 
 declare namespace ExtensionUtil {
@@ -156,6 +177,7 @@ declare interface IPluginBase {
     setPluginOption: (pluginId: string, name: string, val: any) => Promise<void>;
 
     util: IPluginUtil;
+    annotations: IAnnotations;
 }
 
 declare interface IPlugin extends Partial<IPlan> {
