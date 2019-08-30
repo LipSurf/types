@@ -8,6 +8,8 @@ type plan = 0|10|20;
 
 type ElementWithAssocText = {ele: HTMLElement, text: string[]};
 type ClickableElement = HTMLAnchorElement | HTMLButtonElement | HTMLInputElement;
+type TabWithIdAndURL = chrome.tabs.Tab & {id: number, url: string};
+
 
 declare interface IPlan {
     plan: plan;
@@ -146,7 +148,7 @@ declare interface IAnnotations {
 }
 
 declare namespace ExtensionUtil {
-    function queryActiveTab(): Promise<chrome.tabs.Tab>;
+    function queryActiveTab(): Promise<chrome.tabs.Tab & TabWithIdAndURL>;
     function toggleActivated(_activated:boolean): Promise<void>;
 }
 
