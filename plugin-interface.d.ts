@@ -9,7 +9,13 @@ type plan = 0|10|20;
 type ElementWithAssocText = {ele: HTMLElement, text: string[]};
 type ClickableElement = HTMLAnchorElement | HTMLButtonElement | HTMLInputElement;
 type TabWithIdAndURL = chrome.tabs.Tab & {id: number, url: string};
+type FrameEleWithOffsets = [string, DOMRect];
+// the HTMLElement if it's in the current frame, or the element id string if it's another frame
+type EleOrFrameEleWOffsets = HTMLElement|FrameEleWithOffsets;
 
+// for talking to iframes
+type SpecialAttr = 'pos';
+type SpecialFn = 'clickOrFocus';
 
 declare interface IPlan {
     plan: plan;
@@ -116,13 +122,13 @@ declare interface IPluginUtil {
     enterContext: (context: string) => void;
     addOverlay: (contents, id?: string, domLoc?:HTMLElement, hold?: boolean) => HTMLDivElement;
     ready: () => Promise<void>;
-    queryAllFrames: (tagName: string, attrs: string[]) => Promise<any[]>;
-    postToAllFrames: (id, fnNames: string | string[], selector?) =>  void;
+    queryAllFrames: (query: string, attrs?: string | string[], specialAttrs?: SpecialAttr | SpecialAttr[]) => Promise<[string, ...any[]]>;
+    postToAllFrames: (id, fnNames?: string | string[], selector?, specialFns?: SpecialFn | SpecialFn[]) =>  void;
     // TODO: deprecate in favor of generic postToAllFrames?
     // currently used for fullscreen?
     sendMsgToBeacon: (msg: object) => Promise<any>;
     scrollToAnimated: (ele: HTMLElement, offset?: number) => void;
-    isInView: (el: HTMLElement) => boolean;
+    isInViewAndTakesSpace: (el: HTMLElement) => boolean;
     getNoCollisionUniqueAttr: () => string;
     sleep: (number) => Promise<void>;
     getHUDEle: () => [HTMLDivElement, boolean];
@@ -139,8 +145,8 @@ declare interface IPluginUtil {
 
 declare interface IAnnotations {
     destroy: () => void;
-    annotate: (getEls: () => HTMLElement[]) => void;
-    data: {
+    annotate: (getEls: () => Promise<EleOrFrameEleWOffsets[]>) => void;
+    annos: {
         used: Set<string>,
     };
     select: (annotationName: string) => HTMLElement;
