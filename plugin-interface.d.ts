@@ -9,13 +9,13 @@ type plan = 0|10|20;
 type ElementWithAssocText = {ele: HTMLElement, text: string[]};
 type ClickableElement = HTMLAnchorElement | HTMLButtonElement | HTMLInputElement;
 type TabWithIdAndURL = chrome.tabs.Tab & {id: number, url: string};
-type FrameEleWithOffsets = [string, DOMRect];
+type FrameEleWithOffsets = [string, ClientRect];
 // the HTMLElement if it's in the current frame, or the element id string if it's another frame
-type EleOrFrameEleWOffsets = HTMLElement|FrameEleWithOffsets;
+type FrameEleWOffsets = FrameEleWithOffsets;
 
 // for talking to iframes
 type SpecialAttr = 'pos';
-type SpecialFn = 'clickOrFocus';
+type SpecialFn = 'clickOrFocus'|'blinkHighlight';
 
 declare interface IPlan {
     plan: plan;
@@ -145,12 +145,12 @@ declare interface IPluginUtil {
 
 declare interface IAnnotations {
     destroy: () => void;
-    annotate: (getEls: () => Promise<EleOrFrameEleWOffsets[]>) => void;
+    annotate: (getEls: () => Promise<FrameEleWOffsets[]>) => void;
     annos: {
         used: Set<string>,
     };
-    select: (annotationName: string) => HTMLElement;
-    setAnnoSelectCb: (cb: (el: HTMLElement, annoName: string) => any) => void;
+    select: (annotationName: string) => void;
+    setAnnoSelectCb: (cb: (annoElId: string, annoName: string) => any) => void;
 }
 
 declare namespace ExtensionUtil {
