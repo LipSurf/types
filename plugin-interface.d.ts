@@ -14,7 +14,7 @@ type FrameEleWithOffsets = [string, ClientRect];
 type FrameEleWOffsets = FrameEleWithOffsets;
 
 // for talking to iframes
-type SpecialAttr = 'pos';
+type SpecialAttr = 'pos'|'onTop';
 type SpecialFn = 'clickOrFocus'|'blinkHighlight';
 
 declare interface IPlan {
