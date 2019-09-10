@@ -6,7 +6,7 @@ declare interface IDisableable {
 
 type plan = 0|10|20;
 
-type ElementWithAssocText = {ele: HTMLElement, text: string[]};
+type ItemWAssocText<T> = {item: T, text: string[]};
 type ClickableElement = HTMLAnchorElement | HTMLButtonElement | HTMLInputElement;
 type TabWithIdAndURL = chrome.tabs.Tab & {id: number, url: string};
 type FrameEleWithOffsets = [string, ClientRect];
@@ -14,8 +14,8 @@ type FrameEleWithOffsets = [string, ClientRect];
 type FrameEleWOffsets = FrameEleWithOffsets;
 
 // for talking to iframes
-type SpecialAttr = 'pos'|'onTop';
-type SpecialFn = 'clickOrFocus'|'blinkHighlight';
+type SpecialAttr = 'visible'|'pos'|'onTop';
+type SpecialFn = 'clickOrFocus'|'blinkHighlight'|'highlight'|'unhighlightAll';
 
 declare interface IPlan {
     plan: plan;
@@ -43,6 +43,7 @@ declare interface IDynamicMatch {
     //                  have a full match; because the user might be in the process of saying this longer
     //                  command where the partial match is a subset but also a matching command "ie. Help Wanted" 
     //                  executing a different command from "Help"
+    // can be a promise
     fn: (transcript: string) => any;
     description: string;
 }
@@ -123,23 +124,23 @@ declare interface IPluginUtil {
     addOverlay: (contents, id?: string, domLoc?:HTMLElement, hold?: boolean) => HTMLDivElement;
     ready: () => Promise<void>;
     queryAllFrames: (query: string, attrs?: string | string[], specialAttrs?: SpecialAttr | SpecialAttr[]) => Promise<[string, ...any[]]>;
-    postToAllFrames: (id, fnNames?: string | string[], selector?, specialFns?: SpecialFn | SpecialFn[]) =>  void;
+    postToAllFrames: (ids?: string|string[], fnNames?: string | string[], selector?, specialFns?: SpecialFn | SpecialFn[]) =>  void;
     // TODO: deprecate in favor of generic postToAllFrames?
     // currently used for fullscreen?
     sendMsgToBeacon: (msg: object) => Promise<any>;
-    scrollToAnimated: (ele: HTMLElement, offset?: number) => void;
+    scrollToAnimated: (el: HTMLElement, offset?: number) => void;
     isInViewAndTakesSpace: (el: HTMLElement) => boolean;
     getNoCollisionUniqueAttr: () => string;
     sleep: (number) => Promise<void>;
     getHUDEle: () => [HTMLDivElement, boolean];
     pick: (obj: object, ...props: string[]) => object;
     fuzzyScore: (query: string, source: string) => number;
-    topFuzzyElemMatches: (query: string, eleWTextColl: ElementWithAssocText[]) => HTMLElement[];
+    topFuzzyElemMatches: <T>(query: string, itemWTextColl: ItemWAssocText<T>[]) => T[];
     makeVoiceFriendly: (text: string) => string;
-    disambiguatedFuzzyMatch: (query: string, eleWTextColl: ElementWithAssocText[]) => HTMLElement;
+    disambiguatedFuzzyMatch: <T>(query: string, itemWTextColl: ItemWAssocText<T>[]) => T;
     unhighlightAll: () => void;
     highlight: (...els: HTMLElement[]) => void;
-    disambiguate: (els: HTMLElement[]) => Promise<HTMLElement>;
+    disambiguate: (els: HTMLElement[]|FrameEleWOffsets[]) => Promise<HTMLElement|FrameEleWOffsets>;
     clickOrFocus: (el: HTMLElement) => void;
 }
 
