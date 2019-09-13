@@ -109,6 +109,9 @@ declare interface ICommand extends Partial<IPlan>, ILocalizedCommand, IGlobalCom
     enterContext?: string;
     settings?: ISetting[];
     minConfidence?: number;
+    // whether to execute this command in the iframe that has focus 
+    // won't work if the focus is just document.body
+    activeDocument?: boolean;
 }
 
 declare interface IPluginUtil {
