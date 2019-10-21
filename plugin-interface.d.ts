@@ -124,6 +124,7 @@ declare interface IPluginUtil {
     setLanguage: (lang: LanguageCode) => void;
 
     enterContext: (context: string) => void;
+    getContext: () => string;
     addOverlay: (contents, id?: string, domLoc?:HTMLElement, hold?: boolean) => HTMLDivElement;
     ready: () => Promise<void>;
     queryAllFrames: (query: string, attrs?: string | string[], specialAttrs?: SpecialAttr | SpecialAttr[]) => Promise<[string, ...any[]]>;
