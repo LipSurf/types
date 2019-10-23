@@ -38,13 +38,15 @@ declare interface ISimpleHomophones {
     [s: string]: string;
 }
 
+declare type DynamicMatchFnResp = [number, number, any[]]|undefined|false;
+
 declare interface IDynamicMatch {
     // `false` if partial match -- if there's a partial match we should delay other commands that 
     //                  have a full match; because the user might be in the process of saying this longer
     //                  command where the partial match is a subset but also a matching command "ie. Help Wanted" 
     //                  executing a different command from "Help"
     // can be a promise
-    fn: (transcript: string) => any;
+    fn: (transcript: string) => DynamicMatchFnResp;
     description: string;
 }
 
