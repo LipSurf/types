@@ -38,7 +38,7 @@ declare interface ISimpleHomophones {
     [s: string]: string;
 }
 
-declare type SyncDynamicMatchFnResp = [number, number, any[]]|undefined|false;
+declare type SyncDynamicMatchFnResp = [number, number, any[]?]|undefined|false;
 declare type AsyncDynamicMatchFnResp = Promise<SyncDynamicMatchFnResp>
 declare type DynamicMatchFnResp = SyncDynamicMatchFnResp|AsyncDynamicMatchFnResp;
 
