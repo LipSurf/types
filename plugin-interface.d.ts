@@ -1,3 +1,5 @@
+/// <reference types="webdriverio"/>
+/// <reference types="ava"/>
 declare type IndicesPair = [number, number];
 
 declare interface IDisableable {
@@ -105,7 +107,7 @@ interface IStringSetting extends IBaseSetting {
 declare type ISetting = IStringSetting | IBooleanSetting;
 
 declare interface ICommand extends Partial<IPlan>, ILocalizedCommand, IGlobalCommand, IFnCommand {
-    test?: (context: ICommandTestContext) => Promise<void>|void;
+    test?: (t: ExecutionContext<ICommandTestContext>, say: (s?: string) => Promise<void>, client: WebdriverIOAsync.BrowserObject) => Promise<void>|void;
     // matchOutput is the array returned from the match function (if there's a match fn) or 
     // the arguments from special match string (wildcard, numeral etc. type special params)
     pageFn?: (transcript: string, ...matchOutput: any[]) => void|Promise<void>;
