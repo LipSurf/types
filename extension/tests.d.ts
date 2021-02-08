@@ -23,4 +23,8 @@ declare interface ICommandTestContext extends WebdriverIOTestContext {
     condition: (numTags) => boolean,
     errorStr?: string
   ): Promise<number>;
+  getInnerText(
+    client: WebdriverIO.BrowserObject,
+    selectorStr: string
+  ): Promise<string>;
 }
