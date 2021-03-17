@@ -1,5 +1,4 @@
 /// <reference path="../index.d.ts"/>
-
 // What's called IState in the chrome-extension is simplified and known as IOptions in the
 // public plugins repo
 declare interface IOptions {
@@ -38,17 +37,24 @@ interface IMatcher {
   match: string[] | Serialized<IDynamicMatch>;
 }
 
+interface IInternalReplacement {
+  pattern: RegExp;
+  replacement: string;
+  context: string;
+}
+
 interface ILocalPluginData extends IPlan, IOrderable {
   contexts?: IContext;
   commands: {
     [cmdName: string]: ICommandData;
   };
   localized: {
-    [L in LanguageCode]?: {
-      homophones?: ISimpleHomophones;
+    [Lang in LanguageCode]?: {
       matchers: { [cmdName: string]: IMatcher };
-      description?: string;
       niceName: string;
+      replacements: IInternalReplacement[];
+      homophones?: ISimpleHomophones;
+      description?: string;
     };
   };
   match: RegExp[];

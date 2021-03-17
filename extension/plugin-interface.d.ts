@@ -3,6 +3,7 @@
 
 declare type ExecutionContext<T> = import("ava").ExecutionContext<T>;
 declare type IndicesPair = [number, number];
+declare type DualTranscript = [raw: string, norm: string];
 
 declare interface IDisableable {
   enabled: boolean;
@@ -46,6 +47,12 @@ declare interface ISimpleHomophones {
   [s: string]: string;
 }
 
+declare interface IReplacement {
+  pattern: RegExp;
+  replacement: string;
+  context?: string | string[];
+}
+
 declare type SyncDynamicMatchFnResp =
   | [startMatchIndex: number, endMatchIndex: number, matchOutput?: any[]]
   | undefined
@@ -57,7 +64,9 @@ declare type DynamicMatchFnResp =
 
 declare type CmdArgExtras = any[] | undefined;
 // the ...any[] should match CmdArgExtras but there's no way to do that along with allowing it to be undefined
-declare type CmdArgs = [string] | [string, ...any[]];
+declare type CmdArgs =
+  | [transcript: DualTranscript]
+  | [transcript: DualTranscript, ...cmdArgExtras: any[]];
 
 declare interface IDynamicMatch {
   // `false` if partial match -- if there's a partial match we should delay other commands that
@@ -69,7 +78,10 @@ declare interface IDynamicMatch {
   description: string;
 }
 
-declare type INiceFn = (transcript: string, ...matchOutput: any[]) => string;
+declare type INiceFn = (
+  transcript: DualTranscript,
+  ...matchOutput: any[]
+) => string;
 
 declare interface INiceCommand {
   // matchOutput is the array returned from the match function (if there's a match fn) or
@@ -91,7 +103,7 @@ declare interface IGlobalCommand {
 declare interface IFnCommand {
   // matchOutput is the array returned from the match function (if there's a match fn) or
   // the arguments from special match string (wildcard, numeral etc. type special params)
-  fn?: (transcript: string, ...matchOutput: any[]) => Promise<void>;
+  fn?: (transcript: DualTranscript, ...matchOutput: any[]) => Promise<void>;
 }
 
 declare interface ILocalizedCommand extends ILocalizedCommandBase {
@@ -149,7 +161,10 @@ declare interface ICommand
   test?: SingleTest | { [testTitle: string]: SingleTest };
   // matchOutput is the array returned from the match function (if there's a match fn) or
   // the arguments from special match string (wildcard, numeral etc. type special params)
-  pageFn?: (transcript: string, ...matchOutput: any[]) => void | Promise<void>;
+  pageFn?: (
+    transcript: DualTranscript,
+    ...matchOutput: any[]
+  ) => void | Promise<void>;
   // set to false to not include this command in Normal mode. For commands that only belong
   // in certain context(s)
   normal?: false;
@@ -308,10 +323,14 @@ declare namespace ExtensionUtil {
 
 declare interface ILocalizedPlugin {
   niceName: string;
+  commands: { [commandName: string]: ILocalizedCommand };
   authors?: string;
   description?: string;
   homophones?: ISimpleHomophones;
-  commands: { [commandName: string]: ILocalizedCommand };
+  // always run the following regexs in this context, unlike homophones these don't look for a valid
+  // command with the homophone...  they simply always replace text in the transcript. Can be used to
+  // filter words, add shortcuts etc.
+  replacements?: IReplacement[];
 }
 
 declare interface IContext {
@@ -322,9 +341,6 @@ declare interface IContext {
     commands: [group: string, commands: string[]][] | string[];
     // usually an emoji to show the left of the live transcript
     icon?: string;
-    // false by default. If true, no trimming, lowercasing, hypen removal etc. is done on the
-    // transcripts that come down to be checked by match commands
-    raw?: true;
   };
 }
 
@@ -363,17 +379,14 @@ declare interface IPlugin extends Partial<IPlan> {
   icon?: string;
 
   commands: ICommand[];
+  // less common -> common
+  // global homophones that all plugins share
+  // mis-hearings kept in homophones so they can be easily tracked for removal
+  // as voice recognition improves
   homophones?: ISimpleHomophones;
+  replacements?: IReplacement[];
   contexts?: IContext;
   settings?: ISetting[];
-  // always run the following regexs in this context, unlike homophones these don't look for a valid
-  // command with the homophone...  they simply always replace text in the transcript. Can be used to
-  // filter words, add shortcuts etc.
-  replacements?: {
-    pattern: RegExp;
-    replacement: string;
-    context?: string;
-  }[];
   // called anytime the page is re-shown. Must be safe to re-run
   // while lipsurf is activated. Or when lipsurf is first activated.
   init?: (() => void) | (() => Promise<void>);
