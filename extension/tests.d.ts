@@ -27,4 +27,5 @@ declare interface ICommandTestContext extends WebdriverIOTestContext {
     client: WebdriverIO.BrowserObject,
     selectorStr: string
   ): Promise<string>;
+  pageHasText: (text: string) => Promise<boolean>;
 }
