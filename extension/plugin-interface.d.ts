@@ -345,6 +345,7 @@ declare interface IContext {
 }
 
 declare interface IPluginBase {
+  languages: { [lang in LanguageCode]?: ILocalizedPlugin };
   constants: Readonly<{
     contexts: Readonly<{
       Normal: "Normal";
