@@ -41,6 +41,8 @@ interface IInternalReplacement {
   pattern: RegExp;
   replacement: string;
   context: string;
+  // if false, then it's a custom shortcut
+  correction: boolean;
 }
 
 interface ILocalPluginData extends IPlan, IOrderable {
@@ -72,6 +74,8 @@ interface ISyncPluginData extends IDisableable {
   disabledCommands: string[];
   // the source of the homophones
   disabledHomophones: string[];
+  // encoded replacement ID (uses source and context)
+  disabledReplacements: string[];
   // private plugin settings for now eg. annotate on setting
   settings: { [key: string]: any } | undefined;
 }
