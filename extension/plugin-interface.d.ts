@@ -74,7 +74,7 @@ declare interface IDynamicMatch {
   //                  command where the partial match is a subset but also a matching command "ie. Help Wanted"
   //                  executing a different command from "Help"
   // can be a promise
-  fn: (transcript: string) => DynamicMatchFnResp;
+  fn: (transcript: DualTranscript) => DynamicMatchFnResp;
   description: string;
 }
 
