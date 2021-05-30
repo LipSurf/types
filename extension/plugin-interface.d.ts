@@ -3,7 +3,10 @@
 
 declare type ExecutionContext<T> = import("ava").ExecutionContext<T>;
 declare type IndicesPair = [number, number];
-declare type DualTranscript = [raw: string, norm: string];
+declare interface TsData {
+  preTs: string;
+  normTs: string;
+}
 
 declare interface IDisableable {
   enabled: boolean;
@@ -65,8 +68,8 @@ declare type DynamicMatchFnResp =
 declare type CmdArgExtras = any[] | undefined;
 // the ...any[] should match CmdArgExtras but there's no way to do that along with allowing it to be undefined
 declare type CmdArgs =
-  | [transcript: DualTranscript]
-  | [transcript: DualTranscript, ...cmdArgExtras: any[]];
+  | [transcript: TsData]
+  | [transcript: TsData, ...cmdArgExtras: any[]];
 
 declare interface IDynamicMatch {
   // `false` if partial match -- if there's a partial match we should delay other commands that
@@ -74,12 +77,12 @@ declare interface IDynamicMatch {
   //                  command where the partial match is a subset but also a matching command "ie. Help Wanted"
   //                  executing a different command from "Help"
   // can be a promise
-  fn: (transcript: DualTranscript) => DynamicMatchFnResp;
+  fn: (transcript: TsData) => DynamicMatchFnResp;
   description: string;
 }
 
 declare type INiceFn = (
-  transcript: DualTranscript,
+  transcript: TsData,
   ...matchOutput: any[]
 ) => string;
 
@@ -103,7 +106,7 @@ declare interface IGlobalCommand {
 declare interface IFnCommand {
   // matchOutput is the array returned from the match function (if there's a match fn) or
   // the arguments from special match string (wildcard, numeral etc. type special params)
-  fn?: (transcript: DualTranscript, ...matchOutput: any[]) => Promise<void>;
+  fn?: (transcript: TsData, ...matchOutput: any[]) => Promise<void>;
 }
 
 declare interface ILocalizedCommand extends ILocalizedCommandBase {
@@ -162,7 +165,7 @@ declare interface ICommand
   // matchOutput is the array returned from the match function (if there's a match fn) or
   // the arguments from special match string (wildcard, numeral etc. type special params)
   pageFn?: (
-    transcript: DualTranscript,
+    transcript: TsData,
     ...matchOutput: any[]
   ) => void | Promise<void>;
   // set to false to not include this command in Normal mode. For commands that only belong
