@@ -86,30 +86,30 @@ declare type INiceFn = (
   ...matchOutput: any[]
 ) => string;
 
-declare interface INiceCommand {
+declare interface INiceCmd {
   // matchOutput is the array returned from the match function (if there's a match fn) or
   // the arguments from special match string (wildcard, numeral etc. type special params)
   nice?: string | INiceFn;
 }
 
-declare interface ILocalizedCommandBase extends INiceCommand {
+declare interface ILocalizedCmdBase extends INiceCmd {
   // the original name to match this command against
   name: string;
   description?: string;
 }
 
-declare interface IGlobalCommand {
+declare interface IGlobalCmd {
   // let command match on any page (not restricted by plugin level match regex)
   global?: boolean;
 }
 
-declare interface IFnCommand {
+declare interface IFnCmd {
   // matchOutput is the array returned from the match function (if there's a match fn) or
   // the arguments from special match string (wildcard, numeral etc. type special params)
   fn?: (transcript: TsData, ...matchOutput: any[]) => Promise<void>;
 }
 
-declare interface ILocalizedCommand extends ILocalizedCommandBase {
+declare interface ILocalizedCmd extends ILocalizedCmdBase {
   // strings should not have any punctuation in them as puncutation
   // is converted into it's spelled out form eg. "." -> "dot"
   match: string | string[] | IDynamicMatch;
@@ -151,16 +151,16 @@ declare type ISetting =
   | INumberSetting
   | IChoiceSetting;
 declare type SingleTest = (
-  t: ExecutionContext<ICommandTestContext>,
+  t: ExecutionContext<ICmdTestContext>,
   say: (s?: string, segmentId?: number) => Promise<void>,
   client: WebdriverIO.BrowserObject
 ) => Promise<void> | void;
 
-declare interface ICommand
+declare interface ICmd
   extends Partial<IPlan>,
-    ILocalizedCommand,
-    IGlobalCommand,
-    IFnCommand {
+    ILocalizedCmd,
+    IGlobalCmd,
+    IFnCmd {
   test?: SingleTest | { [testTitle: string]: SingleTest };
   // matchOutput is the array returned from the match function (if there's a match fn) or
   // the arguments from special match string (wildcard, numeral etc. type special params)
@@ -327,7 +327,7 @@ declare namespace ExtensionUtil {
 
 declare interface ILocalizedPlugin {
   niceName: string;
-  commands: { [commandName: string]: ILocalizedCommand };
+  commands: { [commandName: string]: ILocalizedCmd };
   authors?: string;
   description?: string;
   homophones?: ISimpleHomophones;
@@ -383,7 +383,7 @@ declare interface IPlugin extends Partial<IPlan> {
   // svg string of an uncolored icon with no height or width
   icon?: string;
 
-  commands: ICommand[];
+  commands: ICmd[];
   // less common -> common
   // global homophones that all plugins share
   // mis-hearings kept in homophones so they can be easily tracked for removal

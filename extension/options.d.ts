@@ -23,7 +23,7 @@ interface IOrderable {
   order: number;
 }
 
-interface ICommandData extends IPlan, IGlobalCommand, IOrderable {
+interface ICmdData extends IPlan, IGlobalCmd, IOrderable {
   order: number;
   fn?: string;
   normal?: false;
@@ -48,7 +48,7 @@ interface IInternalReplacement {
 interface ILocalPluginData extends IPlan, IOrderable {
   contexts?: IContext;
   commands: {
-    [cmdName: string]: ICommandData;
+    [cmdName: string]: ICmdData;
   };
   localized: {
     [Lang in LanguageCode]?: {

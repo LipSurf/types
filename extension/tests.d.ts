@@ -14,7 +14,7 @@ declare interface WebdriverIOTestContext {
   clients: Client[];
 }
 
-declare interface ICommandTestContext extends WebdriverIOTestContext {
+declare interface ICmdTestContext extends WebdriverIOTestContext {
   localPageDomain: string;
   sleep: (amount: number) => Promise<void>;
   activate: () => Promise<void>;
