@@ -283,12 +283,12 @@ declare interface IPluginUtil {
     pluginName: string,
     cmdName: string,
     cmdArgs: CmdArgs,
-    allPlugins?: any
+    options?: {allPlugins?: any, atFront?: boolean}
   ) => Promise<void>;
   runOtherCmd: (
     pluginName: string,
     cmdName: string,
-    cmdArgs: CmdArgs
+    cmdArgs?: CmdArgs
   ) => Promise<void>;
 
   showNeedsUpgradeError: (data: {
