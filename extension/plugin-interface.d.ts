@@ -210,6 +210,8 @@ declare interface IPluginUtil {
   // explicitly enter the seq of contexts
   enterContext: (context: string[]) => void;
 
+  getCmdHistory: () => [pluginId: string, cmdName: string, cmdArgs: CmdArgs][];
+
   // takes into account LipSurf dialogues that are in the shadow DOM (eg. custom homosyn adder)
   getActiveEl: () => HTMLElement | null;
   queryAllFrames: (
