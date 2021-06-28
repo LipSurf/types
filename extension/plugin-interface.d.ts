@@ -213,7 +213,7 @@ declare interface IPluginUtil {
   getCmdHistory: () => [pluginId: string, cmdName: string, cmdArgs: CmdArgs][];
 
   // takes into account LipSurf dialogues that are in the shadow DOM (eg. custom homosyn adder)
-  getActiveEl: () => HTMLElement | null;
+  getActiveEl: () => HTMLElement;
   queryAllFrames: (
     query: string,
     attrs?: string | string[],
