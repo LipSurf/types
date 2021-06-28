@@ -64,6 +64,7 @@ interface ILocalPluginData extends IPlan, IOrderable {
   // sync storage can be updated on a different machine, and all
   // machines would need to update their local plugin versions
   version: string;
+  apiVersion: number;
 }
 
 interface ISyncPluginData extends IDisableable {

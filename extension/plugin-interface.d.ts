@@ -379,7 +379,10 @@ declare interface IPlugin extends Partial<IPlan> {
   description?: string;
   languages?: { [L in LanguageCode]?: ILocalizedPlugin };
   version?: string;
-  apiVersion?: string;
+  // defaults to 1 if not specified
+  // 1 LipSurf versions < "4.0.0"
+  // 2 LipSurf versions >= "4.0.0"
+  apiVersion?: number;
   match: RegExp | RegExp[];
   authors?: string;
   // svg string of an uncolored icon with no height or width
