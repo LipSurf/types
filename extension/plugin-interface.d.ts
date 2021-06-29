@@ -192,6 +192,8 @@ declare interface IButtons {
 
 declare type ContextMutator = (origContext: string[]) => string[];
 
+declare type HUDChild = 'top'|'obscure'|'dontobscure';
+
 declare interface IPluginUtil {
   // meta
   shutdown: () => void; // shutdown LipSurf
@@ -237,7 +239,7 @@ declare interface IPluginUtil {
   isOnTop: (el: HTMLElement) => boolean;
   getNoCollisionUniqueAttr: () => string;
   sleep: (t: number) => Promise<void>;
-  getHUDEl: (obscureTags?: boolean) => [HTMLDivElement, boolean];
+  getHUDEl: (child?: HUDChild) => [HTMLDivElement, boolean];
 
   ready: () => Promise<void>;
   waitForElToExist: (elQ: string) => Promise<HTMLElement>;
