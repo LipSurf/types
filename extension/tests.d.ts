@@ -1,6 +1,6 @@
 declare type Client = {
   id: string;
-  client: WebdriverIO.BrowserObject;
+  client: WebdriverIO.Browser;
   // only necessary on host
   port?: number;
   driver?: import("child_process").ChildProcess;
@@ -19,12 +19,12 @@ declare interface ICmdTestContext extends WebdriverIOTestContext {
   sleep: (amount: number) => Promise<void>;
   activate: () => Promise<void>;
   waitForTagCondition(
-    client: WebdriverIO.BrowserObject,
+    client: WebdriverIO.Browser,
     condition: (numTags) => boolean,
     errorStr?: string
   ): Promise<number>;
   getInnerText(
-    client: WebdriverIO.BrowserObject,
+    client: WebdriverIO.Browser,
     selectorStr: string
   ): Promise<string>;
   pageHasText: (text: string) => Promise<boolean>;

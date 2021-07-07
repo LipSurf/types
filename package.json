@@ -10,6 +10,6 @@
   "dependencies": {
     "@types/chrome": "^0.0.126",
     "ava": "^3.15.0",
-    "webdriverio": "6.12.1"
+    "webdriverio": "7.7.4"
   }
 }
