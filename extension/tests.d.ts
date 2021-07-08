@@ -18,6 +18,7 @@ declare interface ICmdTestContext extends WebdriverIOTestContext {
   localPageDomain: string;
   sleep: (amount: number) => Promise<void>;
   activate: () => Promise<void>;
+  focusAddressBar: () => Promise<void>;
   waitForTagCondition(
     client: WebdriverIO.Browser,
     condition: (numTags) => boolean,
