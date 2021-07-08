@@ -153,7 +153,7 @@ declare type ISetting =
 declare type SingleTest = (
   t: ExecutionContext<ICmdTestContext>,
   say: (s?: string, segmentId?: number) => Promise<void>,
-  client: WebdriverIO.BrowserObject
+  client: WebdriverIO.Browser
 ) => Promise<void> | void;
 
 declare interface ICmd
