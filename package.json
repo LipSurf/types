@@ -1,0 +1,16 @@
+{
+  "name": "@lipsurf/types",
+  "version": "1.0.1",
+  "description": "The typescript types for LipSurf.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "repository": "https://github.com/lipsurf/types",
+  "author": "miko@lipsurf.com",
+  "license": "MIT",
+  "dependencies": {
+    "@types/chrome": "^0.0.159",
+    "ava": "^3.15.0",
+    "webdriverio": "7.7.4"
+  },
+  "packageManager": "yarn@3.0.2"
+}
