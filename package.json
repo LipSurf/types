@@ -4,7 +4,10 @@
   "description": "The typescript types for LipSurf.",
   "main": "index.js",
   "types": "index.d.ts",
-  "repository": "https://github.com/lipsurf/types",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lipsurf/types.git"
+  },
   "author": "Miko Borys",
   "license": "MIT",
   "dependencies": {
@@ -12,5 +15,12 @@
     "ava": "^3.15.0",
     "webdriverio": "7.7.4"
   },
-  "packageManager": "yarn@3.0.2"
+  "packageManager": "yarn@3.0.2",
+  "bugs": {
+    "url": "https://github.com/lipsurf/types/issues"
+  },
+  "homepage": "https://github.com/lipsurf/types#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
