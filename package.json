@@ -5,7 +5,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "repository": "https://github.com/lipsurf/types",
-  "author": "miko@lipsurf.com",
+  "author": "Miko Borys",
   "license": "MIT",
   "dependencies": {
     "@types/chrome": "^0.0.159",
