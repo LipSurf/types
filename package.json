@@ -9,6 +9,9 @@
     "url": "git+https://github.com/lipsurf/types.git"
   },
   "author": "Miko Borys",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "license": "MIT",
   "dependencies": {
     "@types/chrome": "^0.0.159",
