@@ -1,6 +1,6 @@
 {
   "name": "@lipsurf/types",
-  "version": "2.0.2-alpha.0",
+  "version": "2.0.2",
   "description": "The typescript types for LipSurf.",
   "main": "index.js",
   "types": "index.d.ts",
