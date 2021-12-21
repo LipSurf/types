@@ -265,7 +265,7 @@ declare interface IPluginUtil {
 
   unhighlightAll: () => void;
   highlight: (...els: HTMLElement[]) => void;
-  clickOrFocus: (el: HTMLElement) => void;
+  clickOrFocus: (el: HTMLElement, coords?: { x: number; y: number }) => void;
   disambiguate(
     els: FrameElWOffsets[]
   ): Promise<[number, Promise<void>, FrameElWOffsets]>;
