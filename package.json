@@ -14,7 +14,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@types/chrome": "^0.0.159",
+    "@types/chrome": "^0.0.173",
     "ava": "^3.15.0",
     "webdriverio": "7.7.4"
   },
