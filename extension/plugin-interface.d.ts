@@ -230,7 +230,7 @@ declare interface IPluginUtil {
   getRGB: (
     colorHexOrRgbStr: string
   ) => [red: number, green: number, blue: number];
-  isVisible: (el: HTMLElement, inFrame?: boolean) => boolean;
+  isVisible: (el: HTMLElement, inFrame?: boolean = true) => boolean;
   isOnTop: (el: HTMLElement) => boolean;
   getNoCollisionUniqueAttr: () => string;
   sleep: (t: number) => Promise<void>;
