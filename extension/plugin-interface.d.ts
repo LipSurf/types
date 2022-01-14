@@ -399,7 +399,7 @@ declare interface IPlugin extends Partial<IPlan> {
   init?: (() => void) | (() => Promise<void>);
   // called when plugin is deactivated (speech recg. paused)
   // in page context
-  destroy?: (() => void) | (() => Promise<void>);
+  destroy?: () => void;
   // called when LipSurf is turned off (after destroy)
   deactivatedHook?: () => void | (() => Promise<void>);
 }
