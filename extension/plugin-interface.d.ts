@@ -294,6 +294,7 @@ declare interface IPluginUtil {
     customMsg?: string;
     buttons?: IButtons;
   }) => Promise<void>;
+  showFlashMsg: (data: { msg: string; holdTime?: number }) => void;
 }
 
 declare interface IHelp {
