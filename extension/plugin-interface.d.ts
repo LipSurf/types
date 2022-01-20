@@ -288,7 +288,7 @@ declare interface IPluginUtil {
     cmdArgs?: CmdArgs
   ) => Promise<void>;
 
-  showNeedsUpgradeError: (data: {
+  showNeedsUpgrade: (data: {
     plan: plan;
     hold?: boolean;
     customMsg?: string;
