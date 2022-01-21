@@ -19,7 +19,7 @@ type ClickableElement =
   | HTMLInputElement;
 type TabWithIdAndURL = chrome.tabs.Tab & { id: number; url: string };
 // the element XFRAME_UNIQUE_ID attribute value, and the client rect of the element
-type FrameElWOffsets = [string, ClientRect];
+type FrameElWOffsets = [uid: string, ClientRect];
 
 // for talking to iframes
 type SpecialProp = "visible" | "pos" | "onTop";
@@ -295,6 +295,7 @@ declare interface IPluginUtil {
     buttons?: IButtons;
   }) => Promise<void>;
   showFlashMsg: (data: { msg: string; holdTime?: number }) => void;
+  makeTaggable: (el: HTMLElement) => FrameElWOffsets;
 }
 
 declare interface IHelp {
@@ -372,6 +373,11 @@ declare interface IPluginBase {
   help: IHelp;
 }
 
+declare interface IExtraClickable {
+  selector: string;
+  names?: ((el: HTMLElement) => string[]) | string[];
+}
+
 declare interface IPlugin extends Partial<IPlan> {
   niceName: string;
   description?: string;
@@ -386,6 +392,7 @@ declare interface IPlugin extends Partial<IPlan> {
   // svg string of an uncolored icon with no height or width
   icon?: string;
 
+  extraClickables?: IExtraClickable[];
   commands: ICmd[];
   // less common -> common
   // global homophones that all plugins share
