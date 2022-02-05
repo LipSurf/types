@@ -221,7 +221,8 @@ declare interface IPluginUtil {
     ids?: string | string[],
     fnNames?: string | string[],
     selector?,
-    specialFns?: SpecialFn | SpecialFn[]
+    specialFns?: SpecialFn | SpecialFn[],
+    opts?: any
   ) => void;
   // TODO: deprecate in favor of generic postToAllFrames?
   // currently used for fullscreen?
@@ -230,7 +231,7 @@ declare interface IPluginUtil {
   getRGB: (
     colorHexOrRgbStr: string
   ) => [red: number, green: number, blue: number];
-  isVisible: (el: HTMLElement, inFrame?: boolean = true) => boolean;
+  isVisible: (el: HTMLElement, inFrame?: boolean) => boolean;
   isOnTop: (el: HTMLElement) => boolean;
   getNoCollisionUniqueAttr: () => string;
   sleep: (t: number) => Promise<void>;
@@ -319,9 +320,9 @@ declare interface IAnnotations {
   destroy: () => void;
   annotate: (getEls: () => Promise<FrameElWOffsets[]>) => void;
   isUsed: (s: string) => boolean;
-  select: (annotationName: string) => void;
+  select: (annotationName: string, opts?: any) => void;
   setAnnoSelectCb: (
-    cb: (annoEl: FrameElWOffsets, annoName: string) => any
+    cb: (annoEl: FrameElWOffsets, annoName: string, opts?: any) => any
   ) => void;
 }
 
