@@ -18,7 +18,7 @@
     "ava": "^4.1.0",
     "webdriverio": "7.16.16"
   },
-  "packageManager": "yarn@3.1.0",
+  "packageManager": "yarn@3.1.1",
   "bugs": {
     "url": "https://github.com/lipsurf/types/issues"
   },
