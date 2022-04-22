@@ -372,6 +372,9 @@ declare interface IPluginBase {
   ) => Promise<number>;
   unwatch: (id: number | undefined) => void;
 
+  dom: {
+    getElsByText: (text: string | string[]) => HTMLElement | undefined;
+  };
   util: IPluginUtil;
   annotations: IAnnotations;
   help: IHelp;
