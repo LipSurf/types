@@ -51,6 +51,8 @@ declare interface ISimpleHomophones {
 }
 
 declare interface IReplacement {
+  // if pattern has "g", it's a regular expression
+  // otherwise it's a plaintext replacement encoded into a regex
   pattern: RegExp;
   replacement: string;
   context?: string | string[];
