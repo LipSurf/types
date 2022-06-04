@@ -186,6 +186,12 @@ declare interface IButtons {
   [name: string]: (moduleCtx: any) => Promise<void>;
 }
 
+declare interface IPageConnection {
+  send: (data: any) => {
+    onReceive: (listener: (cb: any) => void) => void;
+  };
+}
+
 declare type ContextMutator = (origContext: string[]) => string[];
 
 declare type HUDChild = "top" | "obscure" | "dontobscure";
@@ -210,6 +216,9 @@ declare interface IPluginUtil {
   enterContext: (context: string[]) => void;
 
   getCmdHistory: () => [pluginId: string, cmdName: string, cmdArgs: CmdArgs][];
+
+  connectToPage: (frontendFn: () => void) => IPageConnection;
+  timeout: (p: Promise<T>, time: number) => Promise<T>;
 
   // takes into account LipSurf dialogues that are in the shadow DOM (eg. custom homosyn adder)
   getActiveEl: () => HTMLElement;
