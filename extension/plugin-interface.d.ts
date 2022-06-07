@@ -217,7 +217,7 @@ declare interface IPluginUtil {
 
   getCmdHistory: () => [pluginId: string, cmdName: string, cmdArgs: CmdArgs][];
 
-  connectToPage: (frontendFn: () => function) => IPageConnection;
+  connectToPage: (frontendFn: () => Function) => IPageConnection;
   timeout: <T>(p: Promise<T>, time: number) => Promise<T>;
 
   // takes into account LipSurf dialogues that are in the shadow DOM (eg. custom homosyn adder)
