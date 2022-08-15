@@ -384,7 +384,10 @@ declare interface IPluginBase {
   unwatch: (id: number | undefined) => void;
 
   dom: {
-    getElsByText: (text: string | string[]) => HTMLElement | undefined;
+    getElsByText: (
+      text: string | string[],
+      options?: { root?: HTMLElement | null; onlyVisible?: boolean }
+    ) => HTMLElement | undefined;
   };
   util: IPluginUtil;
   annotations: IAnnotations;
