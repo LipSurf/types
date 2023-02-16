@@ -16,7 +16,7 @@
   "dependencies": {
     "@types/chrome": "^0.0.173",
     "ava": "^4.1.0",
-    "webdriverio": "7.16.16"
+    "webdriverio": "8.3.9"
   },
   "bugs": {
     "url": "https://github.com/lipsurf/types/issues"
